@@ -23,15 +23,19 @@ function createWindow(){
 // about window
 function createAbout(){
     nativeTheme.themeSource = 'dark'
-    const about = new BrowserWindow({
-        width: 512,
-        height: 364,
-        autoHideMenuBar: true,
-        resizable: false,
-        minimizable: false,
-        webPreferences: path.join(__dirname, 'preload.js')
-
-    })
+    const main = BrowserWindow.getFocusedWindow()
+    let about
+    if(main){
+        about = new BrowserWindow({
+            width: 512,
+            height: 364,
+            autoHideMenuBar: true,
+            resizable: false,
+            minimizable: false,
+            parent: main,
+            modal: true 
+        })
+    }
 
     about.loadFile('./src/views/about.html')
 }
