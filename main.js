@@ -1,4 +1,4 @@
-const { app, BrowserWindow, nativeTheme } = require('electron/main')
+const { app, BrowserWindow, nativeTheme, Menu, shell } = require('electron/main')
 const path = require('node:path')
 
 
@@ -13,7 +13,9 @@ function createWindow(){
             preload: path.join(__dirname, 'preload.js')
         }
     })
+    
 
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template))
     win.loadFile('./src/views/index.html')
 }
 
@@ -47,3 +49,57 @@ app.whenReady().then(() =>{
         }
     })
 })
+
+// menu
+const template = [
+    {
+        label: 'File',
+        submenu: [
+            {label: 'New', accelerator: 'CmdOrCtrl+N'},
+            {label: 'Open', accelerator: 'CmdOrCtrl+O'},
+            {label: 'Save',accelerator: 'CmdOrCtrl+S'},
+            {label: 'Save as', accelerator: 'CmdOrCtrl+Shift+S'},
+            {type: 'separator'},
+            {label: 'Out', click: () => app.quit(), accelerator: 'Alt+F4'}
+        ]
+    },
+    {
+        label: 'Edit',
+        submenu: [
+            {label: 'Undo', role: 'undo'},
+            {label: 'Remake', role: 'redo'},
+            {type: 'separator'},
+            {label: 'Cut', role: 'cut'},
+            {label: 'Copy', role: 'copy'},
+            {label: 'Paste', role: 'paste'}
+        ]
+    },
+    {
+        label: 'Zoom',
+        submenu: [
+            {label: 'Zoom', role: 'zoomIn'},
+            {label: 'Zoom Out', role: 'zoomOut'},
+            {label: 'Restore Default', role: 'resetZoom'}
+        ]
+    },
+    {
+        label: 'Color',
+        submenu: [
+            {label: 'Yellow'},
+            {label: 'Blue'},
+            {label: 'Orange'},
+            {label: 'Pink'},
+            {label: 'Purple'},
+            {label: 'Green'},
+            {type: 'separator'},
+            {label: 'Restore Default Color'}
+        ]
+    },
+    {
+        label: 'Help',
+        submenu: [
+            {label: 'Repository', click: () => shell.openExternal('https://github.com/vitorvianaa/mini-code-editor.git')},            
+            {label: 'About', click: () => createAbout()}
+        ]
+    }
+]
