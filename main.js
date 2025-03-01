@@ -54,6 +54,7 @@ app.whenReady().then(() =>{
     })
 })
 
+
 // menu
 const template = [
     {
@@ -89,14 +90,14 @@ const template = [
     {
         label: 'Color',
         submenu: [
-            {label: 'Yellow'},
-            {label: 'Blue'},
-            {label: 'Orange'},
-            {label: 'Pink'},
-            {label: 'Purple'},
-            {label: 'Green'},
+            {label: 'Yellow', click: () => win.webContents.send('set-color', "var(--yellow)")},
+            {label: 'Blue', click: () => win.webContents.send('set-color', "var(--blue)")},
+            {label: 'Orange', click: () => win.webContents.send('set-color', "var(--orange)")},
+            {label: 'Pink', click: () => win.webContents.send('set-color', "var(--pink)")},
+            {label: 'Purple', click: () => win.webContents.send('set-color', "var(--purple)")},
+            {label: 'Green', click: () => win.webContents.send('set-color', "var(--green)")},
             {type: 'separator'},
-            {label: 'Restore Default Color'}
+            {label: 'Restore Default Color', click: () => win.webContents.send('set-color', "var(--lightGray)")}
         ]
     },
     {
